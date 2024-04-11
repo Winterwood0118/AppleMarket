@@ -5,12 +5,13 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.example.applemarket.Data.*
-import com.example.applemarket.DataClass.AppleItem
-import com.example.applemarket.DataClass.ItemInfo
-import com.example.applemarket.DataClass.Seller
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.applemarket.R
+import com.example.applemarket.Activity.Adapter.ItemAdapter
+import com.example.applemarket.Data.ItemData
 import com.example.applemarket.databinding.ActivityMainBinding
+
 
 class MainActivity : AppCompatActivity() {
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
@@ -24,22 +25,16 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        dataInit()
 
-    }
+        val divider = DividerItemDecoration(this, LinearLayoutManager.VERTICAL)
 
-    private fun dataInit() {
-        for (i in 0..9) {
-            val seller = Seller(getString(sellerId[i]), getString(addressId[i]))
-            val itemInfo = ItemInfo(
-                imageId[i],
-                getString(nameId[i]),
-                getString(valueId[i]),
-                getString(introductionId[i])
-            )
-            val item = AppleItem(seller, itemInfo, likeList[i], chatList[i])
-            itemList.addItem(item)
+        binding.mainItemRecyclerView.apply {
+            layoutManager = LinearLayoutManager(this@MainActivity, LinearLayoutManager.VERTICAL, false)
+            adapter = ItemAdapter(itemList.items)
+            addItemDecoration(divider)
         }
+
+
     }
 }
 

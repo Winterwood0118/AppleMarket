@@ -1,6 +1,9 @@
 package com.example.applemarket.Data
 
 import com.example.applemarket.R
+import java.text.DecimalFormat
+
+val DECIMAL = DecimalFormat("#,###")
 
 val imageId = arrayOf(
     R.drawable.sample1,
@@ -67,17 +70,17 @@ val sellerId = arrayOf(
     R.string.seller10
 )
 
-val valueId = arrayOf(
-    R.string.value1,
-    R.string.value2,
-    R.string.value3,
-    R.string.value4,
-    R.string.value5,
-    R.string.value6,
-    R.string.value7,
-    R.string.value8,
-    R.string.value9,
-    R.string.value10,
+val valueList = arrayOf(
+    1000,
+    20000,
+    10000,
+    10000,
+    150000,
+    50000,
+    150000,
+    180000,
+    30000,
+    190000
 )
 
 val likeList = arrayOf(

@@ -4,18 +4,101 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="10dp">
+    android:padding="15dp">
 
-    <ImageView
-        android:id="@+id/itemMainImageView"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/itemCardView"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        app:cardCornerRadius="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-    
+        app:layout_constraintTop_toTopOf="parent">
 
-    
+        <ImageView
+            android:id="@+id/itemImageView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/sample1" />
 
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/itemNameTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:text="@string/sample7_name"
+        android:textSize="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/itemCardView"
+        app:layout_constraintTop_toTopOf="@+id/itemCardView" />
+
+    <TextView
+        android:id="@+id/itemAddressTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/address1"
+        android:textColor="@color/text_grey"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/itemCardView"
+        app:layout_constraintTop_toBottomOf="@+id/itemNameTextView" />
+
+    <TextView
+        android:id="@+id/itemValueTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="10dp"
+        android:text="1000원"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/itemCardView"
+        app:layout_constraintTop_toBottomOf="@+id/itemAddressTextView" />
+
+    <ImageView
+        android:id="@+id/itemChatImageView"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/ic_chat"
+        android:layout_marginEnd="2dp"
+        app:layout_constraintBottom_toBottomOf="@+id/itemChatTextView"
+        app:layout_constraintEnd_toStartOf="@+id/itemChatTextView"
+        app:layout_constraintTop_toTopOf="@+id/itemChatTextView" />
+
+    <TextView
+        android:id="@+id/itemChatTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="35"
+        android:textColor="@color/text_grey"
+        android:layout_marginEnd="5dp"
+        app:layout_constraintBottom_toBottomOf="@+id/itemLikeImageView"
+        app:layout_constraintEnd_toStartOf="@+id/itemLikeImageView"
+        app:layout_constraintTop_toTopOf="@+id/itemLikeImageView" />
+
+    <ImageView
+        android:id="@+id/itemLikeImageView"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/ic_like"
+        android:layout_marginEnd="2dp"
+        app:layout_constraintBottom_toBottomOf="@+id/itemLikeTextView"
+        app:layout_constraintEnd_toStartOf="@+id/itemLikeTextView"
+        app:layout_constraintTop_toTopOf="@+id/itemLikeTextView" />
+
+    <TextView
+        android:id="@+id/itemLikeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="35"
+        android:textColor="@color/text_grey"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
