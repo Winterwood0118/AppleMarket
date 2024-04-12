@@ -5,136 +5,161 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".DetailActivity">
 
-    <ImageView
-        android:id="@+id/detailItemImageView"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="350dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/sample1"
+        android:layout_height="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/constraintLayout2">
 
-    <ImageView
-        android:id="@+id/detailReturnImageView"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_margin="25dp"
-        android:src="@drawable/ic_return_white"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
+
+            <ImageView
+                android:id="@+id/detailItemImageView"
+                android:layout_width="match_parent"
+                android:layout_height="350dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/sample1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/detailReturnImageView"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="25dp"
+                android:src="@drawable/ic_return_white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/detailSellerInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:elevation="4dp"
+                android:padding="15dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/detailItemImageView">
+
+                <ImageView
+                    android:id="@+id/detailProfileImageView"
+                    android:layout_width="65dp"
+                    android:layout_height="65dp"
+                    android:src="@drawable/img_defaultprofile"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/detailSellerTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="난쉽"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toEndOf="@+id/detailProfileImageView"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/detailAddressTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="동래구 온천제2동"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toEndOf="@+id/detailProfileImageView"
+                    app:layout_constraintTop_toBottomOf="@+id/detailSellerTextView" />
+
+                <ImageView
+                    android:id="@+id/celsiusImageView"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/img_defaultprofile"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/celsiusTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="15dp"
+                    android:text="39.9 °C"
+                    android:textColor="@color/orange"
+                    android:textSize="19sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="@+id/celsiusImageView"
+                    app:layout_constraintEnd_toStartOf="@+id/celsiusImageView"
+                    app:layout_constraintTop_toTopOf="@+id/celsiusImageView" />
+
+
+                <TextView
+                    android:id="@+id/mannerTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="매너온도"
+                    android:textColor="@color/text_grey"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/celsiusImageView" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:src="@drawable/line_horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/detailSellerInfo" />
+
+
+            <TextView
+                android:id="@+id/detailItemNameTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="15dp"
+                android:text="샤넬 탑핸들 가방"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/detailSellerInfo" />
+
+            <TextView
+                android:id="@+id/detailItemInfoTextView"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:padding="15dp"
+                android:text="@string/sample7_introduction"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/detailItemNameTextView" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/detailItemInfoTextView"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/detailSellerInfo"
+        android:id="@+id/constraintLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="15dp"
-        android:elevation="4dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/detailItemImageView">
-
-        <ImageView
-            android:id="@+id/detailProfileImageView"
-            android:layout_width="65dp"
-            android:layout_height="65dp"
-            android:src="@drawable/img_defaultprofile"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/detailSellerTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:text="난쉽"
-            android:textSize="22sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/detailProfileImageView"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/detailAddressTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:text="동래구 온천제2동"
-            android:textSize="16sp"
-            app:layout_constraintStart_toEndOf="@+id/detailProfileImageView"
-            app:layout_constraintTop_toBottomOf="@+id/detailSellerTextView" />
-
-        <ImageView
-            android:id="@+id/celsiusImageView"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/img_defaultprofile"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/celsiusTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="39.9 °C"
-            android:textSize="19sp"
-            android:textColor="@color/orange"
-            android:layout_marginEnd="15dp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/celsiusImageView"
-            app:layout_constraintEnd_toStartOf="@+id/celsiusImageView"
-            app:layout_constraintTop_toTopOf="@+id/celsiusImageView" />
-
-
-        <TextView
-            android:id="@+id/mannerTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="매너온도"
-            android:textSize="16sp"
-            android:textColor="@color/text_grey"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/celsiusImageView" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="3dp"
-        android:src="@drawable/line_horizontal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/detailSellerInfo"/>
-
-
-    <TextView
-        android:id="@+id/detailItemNameTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="샤넬 탑핸들 가방"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        android:padding="15dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/detailSellerInfo"
-        />
-
-    <TextView
-        android:id="@+id/detailItemInfoTextView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:padding="15dp"
-        android:text="팔아요~~"
-        android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/detailItemNameTextView" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:background="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -165,10 +190,10 @@
             android:id="@+id/detailValueTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
             android:text="180,000원"
             android:textSize="22sp"
             android:textStyle="bold"
-            android:layout_marginStart="15dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageView"
             app:layout_constraintTop_toTopOf="parent" />
@@ -177,13 +202,13 @@
             android:id="@+id/detailChatButton"
             android:layout_width="111dp"
             android:layout_height="40dp"
+            android:layout_marginEnd="15dp"
             android:background="@drawable/bg_chat_btn"
             android:backgroundTintMode="screen"
             android:text="채팅하기"
-            android:textStyle="bold"
             android:textColor="@color/white"
             android:textSize="18dp"
-            android:layout_marginEnd="15dp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

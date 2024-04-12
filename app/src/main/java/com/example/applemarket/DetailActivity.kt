@@ -1,12 +1,10 @@
 package com.example.applemarket
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.example.applemarket.R
 import com.example.applemarket.databinding.ActivityDetailBinding
 
 class DetailActivity : AppCompatActivity() {

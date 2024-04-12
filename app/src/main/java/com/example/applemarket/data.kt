@@ -1,6 +1,5 @@
 package com.example.applemarket
 
-import com.example.applemarket.R
 import java.text.DecimalFormat
 
 val decimal = DecimalFormat("#,###")
@@ -109,6 +108,7 @@ val chatList = arrayOf(
     6
 )
 
+/*
 fun getData(): List<AppleItem>{
     return listOf(
         AppleItem(
@@ -172,4 +172,4 @@ fun getData(): List<AppleItem>{
             chatList[9]
         )
     )
-}
+}*/
