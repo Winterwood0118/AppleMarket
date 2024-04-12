@@ -1,15 +1,11 @@
-package com.example.applemarket.Data
-
-import com.example.applemarket.DataClass.AppleItem
-import com.example.applemarket.DataClass.ItemInfo
-import com.example.applemarket.DataClass.Seller
+package com.example.applemarket
 
 class ItemData {
     companion object{
         private var itemData: ItemData? = null
 
         fun getInstance(): ItemData {
-            return itemData?: ItemData().apply { itemData = this }
+            return itemData ?: ItemData().apply { itemData = this }
         }
     }
 

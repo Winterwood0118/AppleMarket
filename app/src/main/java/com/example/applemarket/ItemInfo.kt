@@ -1,4 +1,4 @@
-package com.example.applemarket.DataClass
+package com.example.applemarket
 
 import android.os.Parcelable
 import androidx.annotation.DrawableRes
