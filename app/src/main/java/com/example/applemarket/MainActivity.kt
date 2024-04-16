@@ -1,11 +1,9 @@
 package com.example.applemarket
 
-import android.app.Dialog
-import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.os.Build
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
@@ -13,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.lifecycle.ReportFragment.Companion.reportFragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.applemarket.databinding.ActivityMainBinding
@@ -41,20 +38,22 @@ class MainActivity : AppCompatActivity() {
         notification = Notification(this)
 
         itemAdapter.itemList = itemData.items
-        with(binding.mainItemRecyclerView){
+        with(binding.mainItemRecyclerView) {
             adapter = itemAdapter
             layoutManager = LinearLayoutManager(this@MainActivity)
             addItemDecoration(divider)
         }
 
         binding.mainAlarmImageView.setOnClickListener {
-/*            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) { // 권한 체크용
-                val notiPermission = ContextCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS)
-                if (notiPermission == PackageManager.PERMISSION_GRANTED){
-                    notification.deliverNotification()
-                }
-            }*/
-            notification.deliverNotification()
+            val notiPermission = ContextCompat.checkSelfPermission(
+                this,
+                android.Manifest.permission.POST_NOTIFICATIONS
+            )
+            if (notiPermission == PackageManager.PERMISSION_GRANTED) {
+                notification.deliverNotification()
+            }else{
+                Toast.makeText(this@MainActivity, "알림 권한을 설정해주세요", Toast.LENGTH_SHORT).show()
+            }
 
         }
 
@@ -73,7 +72,7 @@ class MainActivity : AppCompatActivity() {
         override fun handleOnBackPressed() {
             val dialog = AlertDialog.Builder(this@MainActivity)
 
-            dialog.apply{
+            dialog.apply {
                 setMessage("종료하시겠습니까?")
                 setPositiveButton("예") { _, _ ->
                     finish()
