@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
 
         onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
 
-        binding.goTopFloating.apply{
+        binding.goTopFloating.apply {
             visibility = View.GONE
             setOnClickListener { goTop() }
         }
@@ -100,12 +100,14 @@ class MainActivity : AppCompatActivity() {
         private var isTop = true
         override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
             super.onScrollStateChanged(recyclerView, newState)
-            if (!binding.mainItemRecyclerView.canScrollVertically(-1) && newState == RecyclerView.SCROLL_STATE_IDLE) {
-                if (!isTop) {
-                    binding.goTopFloating.apply {
-                        startAnimation(fadeOut)
-                        visibility = View.GONE
-                        isTop = true
+            if (!binding.mainItemRecyclerView.canScrollVertically(-1)) {
+                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    if (!isTop) {
+                        binding.goTopFloating.apply {
+                            startAnimation(fadeOut)
+                            visibility = View.GONE
+                            isTop = true
+                        }
                     }
                 }
             } else {
