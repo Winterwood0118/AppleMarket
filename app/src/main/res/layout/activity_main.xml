@@ -64,5 +64,14 @@
         app:layout_constraintVertical_bias="1.0"
         tools:listitem="@layout/main_recyclerview_item" />
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/goTopFloating"
+        android:layout_margin="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_gotop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:fabSize="mini"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,8 +1,11 @@
 package com.example.applemarket
 
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.view.View
+import android.view.animation.AlphaAnimation
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
@@ -13,17 +16,17 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.applemarket.databinding.ActivityMainBinding
 
 
 class MainActivity : AppCompatActivity() {
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
-    private val itemAdapter by lazy {
-        ItemAdapter { appleItem ->
-            adapterOnClick(appleItem)
-        }
-    }
-    private lateinit var notification: Notification
+    private val itemAdapter by lazy { ItemAdapter { adapterOnClick(it) } }
+    private val fadeOut = AlphaAnimation(1.0f, 0.0f).apply { duration = 100 }
+    private val fadeIn = AlphaAnimation(0.0f, 1.0f).apply { duration = 100 }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -35,30 +38,25 @@ class MainActivity : AppCompatActivity() {
         }
         val itemData = ItemData.getInstance()
         val divider = DividerItemDecoration(this, LinearLayoutManager.VERTICAL)
-        notification = Notification(this)
 
         itemAdapter.itemList = itemData.items
         with(binding.mainItemRecyclerView) {
             adapter = itemAdapter
             layoutManager = LinearLayoutManager(this@MainActivity)
             addItemDecoration(divider)
+            addOnScrollListener(onScrollListener)
         }
 
         binding.mainAlarmImageView.setOnClickListener {
-            val notiPermission = ContextCompat.checkSelfPermission(
-                this,
-                android.Manifest.permission.POST_NOTIFICATIONS
-            )
-            if (notiPermission == PackageManager.PERMISSION_GRANTED) {
-                notification.deliverNotification()
-            }else{
-                Toast.makeText(this@MainActivity, "알림 권한을 설정해주세요", Toast.LENGTH_SHORT).show()
-            }
-
+            makeNotification(this)
         }
 
         onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
 
+        binding.goTopFloating.apply{
+            visibility = View.GONE
+            setOnClickListener { goTop() }
+        }
     }
 
 
@@ -83,6 +81,47 @@ class MainActivity : AppCompatActivity() {
             }
             dialog.show()
         }
+    }
+
+    private fun makeNotification(context: Context) {
+        val notification = Notification(context)
+        val notificationPermission = ContextCompat.checkSelfPermission(
+            this,
+            android.Manifest.permission.POST_NOTIFICATIONS
+        )
+        if (notificationPermission == PackageManager.PERMISSION_GRANTED) {
+            notification.deliverNotification()
+        } else {
+            Toast.makeText(context, "알림 권한을 설정해주세요", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private val onScrollListener = object : RecyclerView.OnScrollListener() {
+        private var isTop = true
+        override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+            super.onScrollStateChanged(recyclerView, newState)
+            if (!binding.mainItemRecyclerView.canScrollVertically(-1) && newState == RecyclerView.SCROLL_STATE_IDLE) {
+                if (!isTop) {
+                    binding.goTopFloating.apply {
+                        startAnimation(fadeOut)
+                        visibility = View.GONE
+                        isTop = true
+                    }
+                }
+            } else {
+                if (isTop) {
+                    binding.goTopFloating.apply {
+                        visibility = View.VISIBLE
+                        startAnimation(fadeIn)
+                        isTop = false
+                    }
+                }
+            }
+        }
+    }
+
+    private fun goTop() {
+        binding.mainItemRecyclerView.smoothScrollToPosition(0)
     }
 }
 
