@@ -5,13 +5,15 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.applemarket.databinding.MainRecyclerviewItemBinding
 
-class ItemAdapter(private val onClick: (AppleItem) -> Unit) :
-    RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
+class ItemAdapter(
+    private val onClick: (AppleItem) -> Unit, private val onLongClick: (AppleItem) -> Unit
+) : RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
     var itemList = listOf<AppleItem>()
 
     inner class ItemViewHolder(
         private val binding: MainRecyclerviewItemBinding,
-        val onClick: (AppleItem) -> Unit
+        val onClick: (AppleItem) -> Unit,
+        val onLongClick: (AppleItem) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
         private var currentItem: AppleItem? = null
 
@@ -21,6 +23,13 @@ class ItemAdapter(private val onClick: (AppleItem) -> Unit) :
                     onClick(it)
                 }
             }
+            itemView.setOnLongClickListener {
+                currentItem?.let {
+                    onLongClick(it)
+                }
+                true
+            }
+
         }
 
         fun bind(item: AppleItem) {
@@ -38,7 +47,7 @@ class ItemAdapter(private val onClick: (AppleItem) -> Unit) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.main_recyclerview_item, parent, false)
-        return ItemViewHolder(MainRecyclerviewItemBinding.bind(view), onClick)
+        return ItemViewHolder(MainRecyclerviewItemBinding.bind(view), onClick, onLongClick)
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {

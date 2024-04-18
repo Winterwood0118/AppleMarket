@@ -22,10 +22,16 @@ import com.example.applemarket.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
-    private val itemAdapter by lazy { ItemAdapter { adapterOnClick(it) } }
+    private val itemAdapter by lazy {
+        ItemAdapter(
+            { adapterOnClick(it) },
+            { itemOnLongClick(it) }
+        )
+    }
+
     private val fadeOut = AlphaAnimation(1.0f, 0.0f).apply { duration = 100 }
     private val fadeIn = AlphaAnimation(0.0f, 1.0f).apply { duration = 100 }
-
+    private val itemData = ItemData.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +42,6 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        val itemData = ItemData.getInstance()
         val divider = DividerItemDecoration(this, LinearLayoutManager.VERTICAL)
 
         itemAdapter.itemList = itemData.items
@@ -58,7 +63,6 @@ class MainActivity : AppCompatActivity() {
             setOnClickListener { goTop() }
         }
     }
-
 
     private fun adapterOnClick(appleItem: AppleItem) {
         val intent = Intent(this, DetailActivity::class.java)
@@ -124,6 +128,23 @@ class MainActivity : AppCompatActivity() {
 
     private fun goTop() {
         binding.mainItemRecyclerView.smoothScrollToPosition(0)
+    }
+
+    private fun itemOnLongClick(appleItem: AppleItem) {
+        val dialog = AlertDialog.Builder(this@MainActivity)
+
+        dialog.apply {
+            setTitle("상품 삭제")
+            setMessage("상품을 정말로 삭제하시겠습니까?")
+            setPositiveButton("확인") { _, _ ->
+                itemData.deleteItem(appleItem)
+                itemAdapter.notifyDataSetChanged()
+            }
+            setNegativeButton("취소") { a, _ ->
+                a.dismiss()
+            }
+        }
+        dialog.show()
     }
 }
 
