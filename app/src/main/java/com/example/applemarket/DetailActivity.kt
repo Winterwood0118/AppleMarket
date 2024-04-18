@@ -20,17 +20,24 @@ class DetailActivity : AppCompatActivity() {
         }
         val itemData = ItemData.getInstance()
         val currentItem: AppleItem = intent.getParcelableExtra("data")?:itemData.items[0]
-        val itemValue = decimal.format(currentItem.iItemInfo.iValue) + "원"
+        val currentPosition = intent.getIntExtra("position", 0)
 
         with(binding){
             detailItemImageView.setImageResource(currentItem.iItemInfo.iImageID)
             detailItemNameTextView.setText(currentItem.iItemInfo.iNameId)
-            detailValueTextView.text = itemValue
+            detailValueTextView.setWonText(currentItem.iItemInfo.iValue)
             detailItemInfoTextView.setText(currentItem.iItemInfo.iIntroductionId)
             detailAddressTextView.setText(currentItem.iSeller.sAddressId)
             detailSellerTextView.setText(currentItem.iSeller.sNameId)
             detailReturnImageView.setOnClickListener {
                 finish()
+            }
+            detailLikeImageView.apply {
+                switchHeart(currentItem.isLike)
+                setOnClickListener {
+                    itemData.switchLike(currentPosition)
+                    switchHeart(itemData.items[currentPosition].isLike)
+                }
             }
         }
     }

@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
     private val itemAdapter by lazy {
         ItemAdapter(
-            { appleItem ->  adapterOnClick(appleItem) },
+            { appleItem, position ->  adapterOnClick(appleItem, position) },
             { appleItem, position -> itemOnLongClick(appleItem, position) }
         )
     }
@@ -44,7 +44,6 @@ class MainActivity : AppCompatActivity() {
         }
         val divider = DividerItemDecoration(this, LinearLayoutManager.VERTICAL)
 
-        itemAdapter.itemList = itemData.items
         with(binding.mainItemRecyclerView) {
             adapter = itemAdapter
             layoutManager = LinearLayoutManager(this@MainActivity)
@@ -64,9 +63,15 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun adapterOnClick(appleItem: AppleItem) {
+    override fun onResume() {
+        super.onResume()
+        itemAdapter.notifyDataSetChanged()
+    }
+
+    private fun adapterOnClick(appleItem: AppleItem, position: Int) {
         val intent = Intent(this, DetailActivity::class.java)
         intent.putExtra("data", appleItem)
+        intent.putExtra("position", position)
         startActivity(intent)
     }
 

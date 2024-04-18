@@ -74,12 +74,22 @@ class ItemData {
 
     val items: List<AppleItem> = itemList
 
-    fun addItem(appleItem: AppleItem){
+/*    fun addItem(appleItem: AppleItem){
         itemList.add(appleItem)
-    }
+    }*/
 
     fun deleteItem(appleItem: AppleItem){
         itemList.remove(appleItem)
+    }
+
+    fun switchLike(position: Int){
+        if (itemList[position].isLike){
+            itemList[position].iLike --
+            itemList[position].isLike = false
+        }else{
+            itemList[position].iLike ++
+            itemList[position].isLike = true
+        }
     }
 
 }
