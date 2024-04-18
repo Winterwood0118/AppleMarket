@@ -3,7 +3,9 @@ package com.example.applemarket
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import android.view.View
 import android.view.animation.AlphaAnimation
 import android.widget.Toast
@@ -11,6 +13,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -98,6 +101,15 @@ class MainActivity : AppCompatActivity() {
             this,
             android.Manifest.permission.POST_NOTIFICATIONS
         )
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (!NotificationManagerCompat.from(this).areNotificationsEnabled()) {
+                // 알림 권한이 없다면, 사용자에게 권한 요청
+                val intent = Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS).apply {
+                    putExtra(Settings.EXTRA_APP_PACKAGE, packageName)
+                }
+                startActivity(intent)
+            }
+        }
         if (notificationPermission == PackageManager.PERMISSION_GRANTED) {
             notification.deliverNotification()
         } else {
