@@ -24,8 +24,8 @@ class MainActivity : AppCompatActivity() {
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
     private val itemAdapter by lazy {
         ItemAdapter(
-            { adapterOnClick(it) },
-            { itemOnLongClick(it) }
+            { appleItem ->  adapterOnClick(appleItem) },
+            { appleItem, position -> itemOnLongClick(appleItem, position) }
         )
     }
 
@@ -130,7 +130,7 @@ class MainActivity : AppCompatActivity() {
         binding.mainItemRecyclerView.smoothScrollToPosition(0)
     }
 
-    private fun itemOnLongClick(appleItem: AppleItem) {
+    private fun itemOnLongClick(appleItem: AppleItem, position: Int) {
         val dialog = AlertDialog.Builder(this@MainActivity)
 
         dialog.apply {
@@ -138,7 +138,10 @@ class MainActivity : AppCompatActivity() {
             setMessage("상품을 정말로 삭제하시겠습니까?")
             setPositiveButton("확인") { _, _ ->
                 itemData.deleteItem(appleItem)
-                itemAdapter.notifyDataSetChanged()
+                itemAdapter.apply {
+                    notifyItemRemoved(position) // 얘만 쓰면 각각의 뷰홀더가 가진 position값과 currentPosition에 차이가 생겨서 문제가 발생한다.
+                    notifyItemRangeChanged(position, itemList.size) // 이걸 사용해야 포지션이 업데이트된다
+                }
             }
             setNegativeButton("취소") { a, _ ->
                 a.dismiss()

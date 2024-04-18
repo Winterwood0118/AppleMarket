@@ -6,16 +6,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.applemarket.databinding.MainRecyclerviewItemBinding
 
 class ItemAdapter(
-    private val onClick: (AppleItem) -> Unit, private val onLongClick: (AppleItem) -> Unit
+    private val onClick: (AppleItem) -> Unit, private val onLongClick: (AppleItem, Int) -> Unit
 ) : RecyclerView.Adapter<ItemAdapter.ItemViewHolder>() {
     var itemList = listOf<AppleItem>()
 
     inner class ItemViewHolder(
         private val binding: MainRecyclerviewItemBinding,
         val onClick: (AppleItem) -> Unit,
-        val onLongClick: (AppleItem) -> Unit
+        val onLongClick: (AppleItem, Int) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
         private var currentItem: AppleItem? = null
+        private var currentposition = -1
 
         init {
             itemView.setOnClickListener {
@@ -24,16 +25,15 @@ class ItemAdapter(
                 }
             }
             itemView.setOnLongClickListener {
-                currentItem?.let {
-                    onLongClick(it)
-                }
+                onLongClick(currentItem?:itemList[0], currentposition)
                 true
             }
 
         }
 
-        fun bind(item: AppleItem) {
+        fun bind(item: AppleItem, position: Int) {
             currentItem = item
+            currentposition = position
             val valueString = decimal.format(item.iItemInfo.iValue) + "원"
             binding.itemImageView.setImageResource(item.iItemInfo.iImageID)
             binding.itemAddressTextView.setText(item.iSeller.sAddressId)
@@ -51,7 +51,7 @@ class ItemAdapter(
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        holder.bind(itemList[position])
+        holder.bind(itemList[position], position)
     }
 
     override fun getItemCount(): Int {
