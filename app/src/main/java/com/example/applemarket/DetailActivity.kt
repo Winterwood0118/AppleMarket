@@ -1,11 +1,14 @@
 package com.example.applemarket
 
+import android.content.Context
 import android.os.Bundle
+import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.applemarket.databinding.ActivityDetailBinding
+import com.google.android.material.snackbar.Snackbar
 
 class DetailActivity : AppCompatActivity() {
     private val binding by lazy { ActivityDetailBinding.inflate(layoutInflater) }
@@ -36,9 +39,12 @@ class DetailActivity : AppCompatActivity() {
                 switchHeart(currentItem.isLike)
                 setOnClickListener {
                     itemData.switchLike(currentPosition)
+                    showSnackBar(this, itemData.items[currentPosition].isLike)
                     switchHeart(itemData.items[currentPosition].isLike)
                 }
             }
         }
+
+
     }
 }

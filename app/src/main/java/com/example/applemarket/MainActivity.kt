@@ -132,7 +132,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun goTop() {
-        binding.mainItemRecyclerView.smoothScrollToPosition(0)
+        binding.mainItemRecyclerView.smoothScrollToPosition(0) // 부드럽게 이동
+        //binding.mainItemRecyclerView.scrollToPosition(0) // 확 이동
+
     }
 
     private fun itemOnLongClick(appleItem: AppleItem, position: Int) {

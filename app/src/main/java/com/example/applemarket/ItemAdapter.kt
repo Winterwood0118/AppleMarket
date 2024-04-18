@@ -21,10 +21,10 @@ class ItemAdapter(
 
         init {
             itemView.setOnClickListener {
-                onClick(currentItem?:itemList[0], currentPosition)
+                onClick(currentItem ?: itemList[0], currentPosition)
             }
             itemView.setOnLongClickListener {
-                onLongClick(currentItem?:itemList[0], currentPosition)
+                onLongClick(currentItem ?: itemList[0], currentPosition)
                 true
             }
 
@@ -39,14 +39,15 @@ class ItemAdapter(
             binding.itemValueTextView.setWonText(item.iItemInfo.iValue)
             binding.itemLikeTextView.text = item.iLike.toString()
             binding.itemChatTextView.text = item.iComment.toString()
-            binding.itemLikeImageView.apply{
-                switchHeart(currentItem?.isLike?:false)
+            binding.itemLikeImageView.apply {
+                switchHeart(currentItem?.isLike ?: false)
                 setOnClickListener {
                     itemData.switchLike(currentPosition)
                     currentItem?.isLike?.let {
                         switchHeart(it)
                     }
                     this@ItemAdapter.notifyItemChanged(currentPosition)
+                    showSnackBar(this, currentItem?.isLike ?: false)
                 }
             }
 
@@ -66,7 +67,6 @@ class ItemAdapter(
     override fun getItemCount(): Int {
         return itemList.size
     }
-
 
 
 }
